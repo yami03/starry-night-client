@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import App from "../components/App";
-import { changeColor } from "../actions";
+import { changeColor, drawPicture, addNewPath } from "../actions";
 
 const mapStateToProps = state => {
   return {
@@ -11,6 +11,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   onChangeColor: color => {
     dispatch(changeColor(color));
+  },
+
+  onDrawPicture: direction => {
+    dispatch(drawPicture(direction));
+  },
+  onNewPathAdd: path => {
+    dispatch(addNewPath(path));
   }
 });
 

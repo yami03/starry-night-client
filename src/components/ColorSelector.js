@@ -35,8 +35,6 @@ let styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-between",
     backgroundColor: "#000",
-    borderBottomWidth: 1,
-    borderColor: "#DDD",
     paddingVertical: 5,
     paddingHorizontal: 10
   },
