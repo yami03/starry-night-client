@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import App from "../components/App";
+import AppNavigator from "../navigation/AppNavigator";
 import {
   changeColor,
   drawPicture,
@@ -37,4 +37,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(AppNavigator);
