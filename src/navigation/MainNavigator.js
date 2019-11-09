@@ -4,7 +4,12 @@ import DrawingBoardScreen from "../screens/DrawingBoardScreen";
 
 const MainNavigator = createStackNavigator(
   {
-    Map: { screen: MapScreen },
+    Map: {
+      screen: MapScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
     DrawingBoard: { screen: DrawingBoardScreen }
   },
   {
