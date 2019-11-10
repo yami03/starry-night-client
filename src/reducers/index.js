@@ -4,7 +4,8 @@ import {
   ADD_NEW_PATH_ON_RAWING_BOARD,
   UNDO_PATH_ON_RAWING_BOARD,
   REDO_PATH_ON_RAWING_BOARD,
-  RESET_DRAWING_BOARD
+  RESET_DRAWING_BOARD,
+  GET_LOCATION
 } from "../constants/actionTypes";
 
 const initialState = {
@@ -15,6 +16,12 @@ const initialState = {
     currentPoints: [],
     donePaths: [],
     redoPaths: []
+  },
+  location: {
+    latitude: 37.78825,
+    longitude: -122.4324,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421
   }
 };
 
@@ -73,6 +80,13 @@ function reducer(state = initialState, action) {
     case RESET_DRAWING_BOARD:
       return Object.assign({}, state, {
         painting: initialState.painting
+      });
+    case GET_LOCATION:
+      return Object.assign({}, state, {
+        location: Object.assign({}, state.location, {
+          latitude: action.location.latitude,
+          longitude: action.location.longitude
+        })
       });
     default:
       return state;

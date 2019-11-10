@@ -1,3 +1,4 @@
+import React from "react";
 import { connect } from "react-redux";
 import AppNavigator from "../navigation/AppNavigator";
 import {
@@ -6,17 +7,20 @@ import {
   addNewPath,
   undoPath,
   redoPath,
-  resetBoard
+  resetBoard,
+  getLocation
 } from "../actions";
 import { postPicture } from "../api";
 
 const mapStateToProps = state => {
   return {
-    painting: state.painting
+    painting: state.painting,
+    location: state.location
   };
 };
 
 const mapDispatchToProps = dispatch => ({
+  onGetLocation: location => dispatch(getLocation(location)),
   onChangeColor: color => dispatch(changeColor(color)),
   onDrawPicture: direction => dispatch(drawPicture(direction)),
   onNewPathAdd: path => dispatch(addNewPath(path)),
@@ -34,7 +38,11 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
+const AppContainer = props => {
+  return <AppNavigator screenProps={props} />;
+};
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AppNavigator);
+)(AppContainer);

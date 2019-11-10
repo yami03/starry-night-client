@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { View, Text, Dimensions, StyleSheet } from "react-native";
+import { View, Text, Dimensions, StyleSheet, Alert } from "react-native";
 import MapView, { Polyline, Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import * as Location from "expo-location";
 
 const mapStyle = [
   {
@@ -194,8 +195,19 @@ export default class Map extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.getLocationAsync();
+  }
+
+  getLocationAsync = async () => {
+    let currentLocation = await Location.getCurrentPositionAsync({});
+    this.props.onGetLocation({
+      latitude: currentLocation.coords.latitude,
+      longitude: currentLocation.coords.longitude
+    });
+  };
+
   render() {
-    console.log(this.props.location);
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <MapView

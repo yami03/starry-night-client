@@ -9,7 +9,11 @@ export default class MapScreen extends Component {
   }
   render() {
     const { navigation } = this.props;
-    const { location } = this.props.screenProps;
-    return <Map location={location} />;
+    const { location, onGetLocation } = this.props.screenProps;
+    return (
+      <View>
+        <Map location={location} onGetLocation={onGetLocation} />
+      </View>
+    );
   }
 }

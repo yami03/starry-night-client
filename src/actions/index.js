@@ -4,7 +4,8 @@ import {
   ADD_NEW_PATH_ON_RAWING_BOARD,
   UNDO_PATH_ON_RAWING_BOARD,
   REDO_PATH_ON_RAWING_BOARD,
-  RESET_DRAWING_BOARD
+  RESET_DRAWING_BOARD,
+  GET_LOCATION
 } from "../constants/actionTypes";
 
 export const changeColor = color => ({
@@ -32,4 +33,9 @@ export const redoPath = () => ({
 
 export const resetBoard = () => ({
   type: RESET_DRAWING_BOARD
+});
+
+export const getLocation = location => ({
+  type: GET_LOCATION,
+  location
 });
