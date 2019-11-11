@@ -5,7 +5,8 @@ import {
   UNDO_PATH_ON_RAWING_BOARD,
   REDO_PATH_ON_RAWING_BOARD,
   RESET_DRAWING_BOARD,
-  GET_LOCATION
+  GET_LOCATION,
+  GET_USER_INFO
 } from "../constants/actionTypes";
 
 export const changeColor = color => ({
@@ -38,4 +39,9 @@ export const resetBoard = () => ({
 export const getLocation = location => ({
   type: GET_LOCATION,
   location
+});
+
+export const getUserInfo = user => ({
+  type: GET_USER_INFO,
+  user
 });

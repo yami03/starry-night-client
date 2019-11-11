@@ -5,10 +5,16 @@ import {
   UNDO_PATH_ON_RAWING_BOARD,
   REDO_PATH_ON_RAWING_BOARD,
   RESET_DRAWING_BOARD,
-  GET_LOCATION
+  GET_LOCATION,
+  GET_USER_INFO
 } from "../constants/actionTypes";
 
 const initialState = {
+  user: {
+    id: "",
+    name: "",
+    picture: ""
+  },
   painting: {
     color: "#ffffff",
     strokeWidth: 4,
@@ -87,6 +93,10 @@ function reducer(state = initialState, action) {
           latitude: action.location.latitude,
           longitude: action.location.longitude
         })
+      });
+    case GET_USER_INFO:
+      return Object.assign({}, state, {
+        user: action.user
       });
     default:
       return state;

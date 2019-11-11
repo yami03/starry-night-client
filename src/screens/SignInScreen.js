@@ -7,11 +7,19 @@ export default class SignInScreen extends Component {
     try {
       const facebookResponse = await logInFacebook();
 
-      await getToken({
+      const response = await getToken({
         id: facebookResponse.id,
         name: facebookResponse.name,
         picture: facebookResponse.picture
       });
+
+      const userInfo = {
+        id: response._id,
+        name: facebookResponse.name,
+        picture: facebookResponse.picture.data.url
+      };
+
+      this.props.screenProps.onGetUserInfo(userInfo);
 
       this.props.navigation.navigate("Main");
     } catch ({ message }) {
