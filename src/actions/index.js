@@ -6,7 +6,9 @@ import {
   REDO_PATH_ON_RAWING_BOARD,
   RESET_DRAWING_BOARD,
   GET_LOCATION,
-  GET_USER_INFO
+  GET_USER_INFO,
+  UPDATE_PICTURES,
+  UPDATE_MY_PICTURES
 } from "../constants/actionTypes";
 
 export const changeColor = color => ({
@@ -43,5 +45,19 @@ export const getLocation = location => ({
 
 export const getUserInfo = user => ({
   type: GET_USER_INFO,
-  user
+  user: {
+    id: user.id,
+    name: user.name,
+    profilePictureUrl: user.profile_picture_url
+  }
+});
+
+export const updatePictures = pictures => ({
+  type: UPDATE_PICTURES,
+  pictures
+});
+
+export const updateMyPictures = pictures => ({
+  type: UPDATE_MY_PICTURES,
+  pictures
 });

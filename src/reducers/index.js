@@ -6,14 +6,17 @@ import {
   REDO_PATH_ON_RAWING_BOARD,
   RESET_DRAWING_BOARD,
   GET_LOCATION,
-  GET_USER_INFO
+  GET_USER_INFO,
+  UPDATE_PICTURES,
+  UPDATE_MY_PICTURES
 } from "../constants/actionTypes";
 
 const initialState = {
   user: {
     id: "",
     name: "",
-    picture: ""
+    pictures: [],
+    profilePictureUrl: ""
   },
   painting: {
     color: "#ffffff",
@@ -23,11 +26,12 @@ const initialState = {
     donePaths: [],
     redoPaths: []
   },
+  pictures: [],
   location: {
     latitude: 37.78825,
     longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421
+    latitudeDelta: 0.1,
+    longitudeDelta: 0.1
   }
 };
 
@@ -97,6 +101,16 @@ function reducer(state = initialState, action) {
     case GET_USER_INFO:
       return Object.assign({}, state, {
         user: action.user
+      });
+    case UPDATE_PICTURES:
+      return Object.assign({}, state, {
+        pictures: action.pictures
+      });
+    case UPDATE_MY_PICTURES:
+      return Object.assign({}, state, {
+        user: Object.assign({}, state.user, {
+          pictures: action.pictures
+        })
       });
     default:
       return state;

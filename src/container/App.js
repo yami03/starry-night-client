@@ -8,33 +8,41 @@ import {
   undoPath,
   redoPath,
   resetBoard,
-  getLocation
+  getLocation,
+  getUserInfo,
+  updatePictures,
+  updateMyPictures
 } from "../actions";
-import { postPicture } from "../api";
+import { postPicture, getAllPicture, getMyPicture } from "../api";
 
 const mapStateToProps = state => {
   return {
+    user: state.user,
     painting: state.painting,
-    location: state.location
+    location: state.location,
+    pictures: state.pictures
   };
 };
 
 const mapDispatchToProps = dispatch => ({
+  onGetUserInfo: data => dispatch(getUserInfo(data)),
   onGetLocation: location => dispatch(getLocation(location)),
   onChangeColor: color => dispatch(changeColor(color)),
   onDrawPicture: direction => dispatch(drawPicture(direction)),
   onNewPathAdd: path => dispatch(addNewPath(path)),
   onPathUndo: () => dispatch(undoPath()),
   onPathRedo: () => dispatch(redoPath()),
-  onBoardReset: donePaths => {
-    console.log(donePaths);
-    fetch("http://localhost:4001/painting", {
-      method: "POST",
-      body: JSON.stringify({ donePaths }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+  onBoardSave: async data => {
+    await postPicture(data);
+    dispatch(resetBoard());
+  },
+  onGetAllPicture: async () => {
+    const result = await getAllPicture();
+    dispatch(updatePictures(result));
+  },
+  onGetMyPicture: async () => {
+    const result = await getMyPicture();
+    dispatch(updateMyPictures(result));
   }
 });
 
@@ -42,7 +50,4 @@ const AppContainer = props => {
   return <AppNavigator screenProps={props} />;
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AppContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
