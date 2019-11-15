@@ -43,14 +43,16 @@ export const getLocation = location => ({
   location
 });
 
-export const getUserInfo = user => ({
-  type: GET_USER_INFO,
-  user: {
-    id: user.id,
-    name: user.name,
-    profilePictureUrl: user.profile_picture_url
-  }
-});
+export const getUserInfo = user => {
+  return {
+    type: GET_USER_INFO,
+    user: {
+      id: user.id,
+      name: user.name,
+      profilePictureUrl: user.profilePictureUrl || user.profile_picture_url
+    }
+  };
+};
 
 export const updatePictures = pictures => ({
   type: UPDATE_PICTURES,

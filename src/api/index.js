@@ -2,7 +2,7 @@ import * as Facebook from "expo-facebook";
 import * as SecureStore from "expo-secure-store";
 import { FACEBOOK_APP_ID } from "../config";
 
-const URL = "http://192.168.0.7:4001";
+const URL = "http://192.168.0.50:4001";
 
 export const logInFacebook = async () => {
   const { type, token } = await Facebook.logInWithReadPermissionsAsync(
@@ -52,15 +52,18 @@ export const getUser = async () => {
   return result;
 };
 
-export const getAllPicture = async () => {
+export const getAllPicture = async location => {
   const token = await SecureStore.getItemAsync("ACCESS_TOKEN");
 
-  const response = await fetch(`${URL}/paintings`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`
+  const response = await fetch(
+    `${URL}/paintings/${location.longitude}/${location.latitude}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     }
-  });
+  );
 
   const result = await response.json();
   return result.paintings;
@@ -84,7 +87,7 @@ export const getMyPicture = async () => {
 export const postPicture = async data => {
   const token = await SecureStore.getItemAsync("ACCESS_TOKEN");
 
-  fetch(`${URL}/painting`, {
+  await fetch(`${URL}/painting`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {

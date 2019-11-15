@@ -72,7 +72,7 @@ export default class SignInScreen extends Component {
       const userInfo = {
         id: response._id,
         name: facebookResponse.name,
-        picture: facebookResponse.picture.data.url
+        profilePictureUrl: facebookResponse.picture.data.url
       };
 
       this.props.screenProps.onGetUserInfo(userInfo);

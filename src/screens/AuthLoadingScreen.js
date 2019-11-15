@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   ActivityIndicator,
-  AsyncStorage,
+  Text,
   StyleSheet,
   StatusBar,
   View,
@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import * as Permissions from "expo-permissions";
 import * as SecureStore from "expo-secure-store";
+import { getUser } from "../api";
 
 export default class AuthLoadingScreen extends Component {
   constructor() {
@@ -22,7 +23,16 @@ export default class AuthLoadingScreen extends Component {
 
   isLoginAsync = async () => {
     const userToken = await SecureStore.getItemAsync("ACCESS_TOKEN");
-    this.props.navigation.navigate(userToken ? "Main" : "Auth");
+
+    if (userToken) {
+      const result = await getUser();
+
+      this.props.screenProps.onGetUserInfo(result);
+      this.props.navigation.navigate("Map");
+      return;
+    }
+
+    this.props.navigation.navigate("Auth");
   };
 
   getLocationAsync = async () => {
@@ -41,6 +51,7 @@ export default class AuthLoadingScreen extends Component {
     return (
       <View style={styles.container}>
         <ActivityIndicator />
+        <Text>Loading</Text>
         <StatusBar barStyle="default" />
       </View>
     );
