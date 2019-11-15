@@ -36,8 +36,8 @@ const mapDispatchToProps = dispatch => ({
     await postPicture(data);
     dispatch(resetBoard());
   },
-  onGetAllPicture: async () => {
-    const result = await getAllPicture();
+  onGetAllPicture: async location => {
+    const result = await getAllPicture(location);
     dispatch(updatePictures(result));
   },
   onGetMyPicture: async () => {

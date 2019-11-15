@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { View, Text, Dimensions, StyleSheet, Alert } from "react-native";
-import MapView, { Polyline, Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import * as Location from "expo-location";
+import { View, Dimensions, StyleSheet } from "react-native";
+import MapView, { Polyline, PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import { getWeek } from "../utility/date";
 
 const mapStyle = [
   {
@@ -195,27 +195,69 @@ export default class Map extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.getLocationAsync();
-  }
-
-  getLocationAsync = async () => {
-    let currentLocation = await Location.getCurrentPositionAsync({});
-    this.props.onGetLocation({
-      latitude: currentLocation.coords.latitude,
-      longitude: currentLocation.coords.longitude
-    });
-  };
-
   render() {
+    const { location, goPictureView, pictures, user } = this.props;
+    const myConstellations = {};
+
+    pictures.forEach(picture => {
+      if (picture.user === user) {
+        const week = getWeek(picture.created_at);
+        if (!myConstellations.hasOwnProperty(week)) myConstellations[week] = [];
+        myConstellations[week].push({
+          longitude: picture.location.coordinates[0],
+          latitude: picture.location.coordinates[1]
+        });
+      }
+    });
+
+    const renderPolyLine = Object.keys(myConstellations).map(constellation => (
+      <Polyline
+        key={constellation}
+        coordinates={myConstellations[constellation]}
+        strokeColor="#FD9800"
+        strokeColors={[
+          "#7F0000",
+          "#00000000",
+          "#B24112",
+          "#E5845C",
+          "#238C23",
+          "#7F0000"
+        ]}
+        strokeWidth={1}
+      />
+    ));
+
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View>
         <MapView
           provider={PROVIDER_GOOGLE}
-          style={styles.mapStyle}
-          initialRegion={this.props.location}
+          showsUserLocation={true}
+          // region={location}
+          // 데모용 위치 설정
+          region={{
+            latitude: 37.77,
+            longitude: -122.45,
+            latitudeDelta: 0.1,
+            longitudeDelta: 0.1
+          }}
           customMapStyle={mapStyle}
-        />
+          style={styles.mapStyle}
+          minZoomLevel={9}
+        >
+          {renderPolyLine}
+          {pictures.map((picture, index) => (
+            <Marker
+              onPress={() => goPictureView(index)}
+              key={index}
+              coordinate={{
+                longitude: picture.location.coordinates[0],
+                latitude: picture.location.coordinates[1]
+              }}
+              image={require("../../assets/star.png")}
+              anchor={{ x: 0.5, y: 0.5 }}
+            />
+          ))}
+        </MapView>
       </View>
     );
   }
@@ -224,6 +266,6 @@ export default class Map extends Component {
 const styles = StyleSheet.create({
   mapStyle: {
     width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height
+    height: Dimensions.get("window").height * 1.2
   }
 });

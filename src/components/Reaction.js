@@ -14,7 +14,7 @@ class Reaction {
 
   setOffset(options) {
     this._offsetX = options.x;
-    this._offsetY = options.y;
+    this._offsetY = options.y + 200;
   }
 
   pointsToSvg(points) {
