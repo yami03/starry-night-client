@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Dimensions } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import styled from "styled-components";
 
 const Container = styled.View`
@@ -14,9 +15,13 @@ const List = styled.FlatList`
   color: #fff;
 `;
 
+const Wrap = styled.View`
+  padding: 5px;
+`;
+
 const Image = styled.Image`
-  width: ${(Dimensions.get("window").width - 40) * 0.5};
-  height: ${(Dimensions.get("window").width - 40) * 0.65};
+  width: ${(Dimensions.get("window").width - 60) * 0.5};
+  height: ${(Dimensions.get("window").width - 60) * 0.65};
 `;
 
 export default class PictureList extends Component {
@@ -29,7 +34,17 @@ export default class PictureList extends Component {
           data={pictures}
           numColumns={2}
           renderItem={({ item }) => (
-            <Image source={{ uri: `data:image/png;base64,${item.png}` }} />
+            <Wrap>
+              <LinearGradient
+                style={{
+                  padding: 1,
+                  borderRadius: 1
+                }}
+                colors={["#2569FF", "#C848FE"]}
+              >
+                <Image source={{ uri: `data:image/png;base64,${item.png}` }} />
+              </LinearGradient>
+            </Wrap>
           )}
           keyExtractor={(item, index) => index.toString()}
         />

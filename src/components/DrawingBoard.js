@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  PanResponder,
-  TouchableOpacity,
-  View,
-  Text
-} from "react-native";
+import { StyleSheet, PanResponder, View } from "react-native";
 import Svg, { G, Path } from "react-native-svg";
 import Reaction from "./Reaction";
 
@@ -27,16 +21,8 @@ export default class DrawingBoard extends Component {
 
   onTouch(evt) {
     let [x, y] = [evt.nativeEvent.pageX, evt.nativeEvent.pageY];
-    // const newCurrentPoints = this.props.currentPoints;
-    // newCurrentPoints.push({ x, y });
 
     this.props.onDrawPicture({ x, y });
-
-    // this.setState({
-    //   donePaths: this.props.donePaths,
-    //   currentPoints: newCurrentPoints,
-    //   currentMax: this.state.currentMax
-    // });
   }
 
   onResponderGrant(evt) {
@@ -82,17 +68,17 @@ export default class DrawingBoard extends Component {
       <View
         onLayout={this._onLayoutContainer}
         style={[
-          styles.drawContainer,
           this.props.containerStyle,
           { width: this.props.width, height: this.props.height }
         ]}
       >
-        <View {...this._panResponder.panHandlers}>
-          <Svg
-            style={styles.drawSurface}
-            width={this.props.width}
-            height={this.props.height}
-          >
+        <View
+          {...this._panResponder.panHandlers}
+          style={{
+            backgroundColor: "#000"
+          }}
+        >
+          <Svg width={this.props.width} height={this.props.height}>
             <G>
               {renderPath}
               <Path
@@ -109,19 +95,3 @@ export default class DrawingBoard extends Component {
     );
   }
 }
-
-let styles = StyleSheet.create({
-  drawContainer: {
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowOpacity: 0.1,
-    // shadowRadius: 2,
-    // elevation: 1
-  },
-
-  drawSurface: {
-    borderWidth: 5,
-    borderRightWidth: 5,
-    borderColor: "#fff",
-    backgroundColor: "#000"
-  }
-});

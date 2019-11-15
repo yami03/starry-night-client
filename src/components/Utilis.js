@@ -1,11 +1,18 @@
 import React, { Component } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import {
-  faUndoAlt,
-  faRedoAlt,
-  faSave
-} from "@fortawesome/free-solid-svg-icons";
+import { TouchableOpacity } from "react-native";
+import styled from "styled-components";
+
+const Container = styled.View`
+  flex-direction: row;
+  margin-left: auto;
+  padding: 0 20px;
+`;
+
+const Icon = styled.Image`
+  width: 40px;
+  height: 40px;
+  opacity: ${props => props.opacity};
+`;
 
 export default class Utilis extends Component {
   undo(donePaths) {
@@ -25,47 +32,30 @@ export default class Utilis extends Component {
 
   render() {
     const { donePaths, redoPaths } = this.props;
-    const buttonColor = donePaths.length ? "#fff" : "#666";
-    const redoColor = redoPaths.length ? "#fff" : "#666";
+    const buttonOpacity = donePaths.length ? 1 : 0.3;
+    const redoOpacity = redoPaths.length ? 1 : 0.3;
 
     return (
-      <View style={styles.container}>
+      <Container>
         <TouchableOpacity key="undo" onPress={() => this.undo(donePaths)}>
-          <FontAwesomeIcon
-            icon={faUndoAlt}
-            color={buttonColor}
-            size={20}
-            style={styles.fontAwesome}
+          <Icon
+            opacity={buttonOpacity}
+            source={require("../../assets/undo.png")}
           />
         </TouchableOpacity>
         <TouchableOpacity key="redo" onPress={() => this.redo(redoPaths)}>
-          <FontAwesomeIcon
-            icon={faRedoAlt}
-            color={redoColor}
-            size={20}
-            style={styles.fontAwesome}
+          <Icon
+            opacity={redoOpacity}
+            source={require("../../assets/redo.png")}
           />
         </TouchableOpacity>
         <TouchableOpacity key="save" onPress={() => this.save(donePaths)}>
-          <FontAwesomeIcon
-            icon={faSave}
-            color={buttonColor}
-            size={20}
-            style={styles.fontAwesome}
+          <Icon
+            opacity={buttonOpacity}
+            source={require("../../assets/save.png")}
           />
         </TouchableOpacity>
-      </View>
+      </Container>
     );
   }
 }
-
-let styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    marginLeft: "auto",
-    paddingHorizontal: 20
-  },
-  fontAwesome: {
-    marginLeft: 15
-  }
-});

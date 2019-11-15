@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View, Dimensions } from "react-native";
 import Colors from "../constants/Colors";
 
 export default class ColorSelector extends Component {
@@ -40,11 +40,11 @@ let styles = StyleSheet.create({
   },
 
   option: {
-    width: 25,
-    height: 25,
+    width: Dimensions.get("window").width * 0.06,
+    height: Dimensions.get("window").width * 0.06,
     borderRadius: 12.5,
     marginVertical: 5,
-    marginHorizontal: 10,
+    marginHorizontal: Dimensions.get("window").width * 0.025,
     borderWidth: 2,
     borderStyle: "solid"
   }
