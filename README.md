@@ -42,7 +42,7 @@ SESSION_SECRET
 * Facebook 로그인 기능
 * JSON Web Token Authentication
 * svg를 이용하여 그림 그리기
-* svg path를 stack으로 쌓아서 이전과 앞으로 돌리기 가능
+* svg path를 stack으로 쌓아서 이전과 앞으로 돌리기 기능
 * 그림을 저장시 map에서 위치로 별모양 마커로 저장
 * 일주일을 기준으로 사용자의 그림은 마커끼리 선으로 이어 별자리 모양으로 구현
 * 나의 현재위치에서 10000미터 거리에 있는 그림만 확인 가능
