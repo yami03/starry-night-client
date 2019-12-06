@@ -1,4 +1,7 @@
-# starry night
+# Starry Night
+[![youtube](README.assets/youtube.png)](https://youtu.be/g6O58_y4pnM)
+
+
 
 애플리케이션내에서 그림을 그린 후 사용자와 그림을 공유하는 안드로이드 애플리케이션입니다
 사용자가 그림을 그리면 지도에 별모양의 마커로 저장되며 일주일을 기준으로 마커를 선으로 이어 별자리 모양으로 만듭니다.
